@@ -101,6 +101,22 @@ namespace PWABuilder.Services
             {
                 logger.LogWarning("There are {pageCount} pages open in the Puppeteer browser. Possible page leak detected.", pages.Length);
             }
+            if (pages.Length > 100)
+            {
+                // Extreme case: close all pages to free up resources.
+                logger.LogError("Too many pages ({pageCount}) open in the Puppeteer browser. Closing all pages to free up resources.", pages.Length);
+                foreach (var openPage in pages)
+                {
+                    try
+                    {
+                        await openPage.CloseAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, "Error closing page during cleanup.");
+                    }
+                }
+            }
 
             var page = await browser.NewPageAsync();
 
