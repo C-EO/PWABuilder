@@ -604,7 +604,7 @@ export class ManifestIconsForm extends LitElement {
     }
 
     renderIcon(i: Icon): TemplateResult {
-        const crossDomainFallbackUrl = `${this.imageProxyUrl}?url=${encodeURIComponent(i.src)}&analysisId=${this.analysisId}`;
+        const crossDomainFallbackUrl = `${this.imageProxyUrl}?imageUrl=${encodeURIComponent(i.src)}&analysisId=${this.analysisId}`;
         return html`
       <div class="icon-box">
         <img class="icon" src=${i.src} 
