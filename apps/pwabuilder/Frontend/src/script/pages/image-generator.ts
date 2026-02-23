@@ -356,8 +356,11 @@ export class ImageGenerator extends LitElement {
             }
 
             const blob = await createStoreImagesRequest.blob();
+            const disposition = createStoreImagesRequest.headers.get("Content-Disposition");
+            const fileNameMatch = disposition ? /filename="?([^";\n]+)"?/i.exec(disposition) : null;
+            const fileName = fileNameMatch?.[1] ?? "appstore-images.zip";
             const url = URL.createObjectURL(blob);
-            this.downloadZip(url);
+            this.downloadZip(url, fileName);
             URL.revokeObjectURL(url);
 
         } catch (e) {
@@ -369,10 +372,10 @@ export class ImageGenerator extends LitElement {
         }
     }
 
-    downloadZip(zipUrl: string) {
+    downloadZip(zipUrl: string, fileName: string) {
         const hyperlink = document.createElement("a");
         hyperlink.href = zipUrl;
-        hyperlink.download = "";
+        hyperlink.download = fileName;
         hyperlink.click();
     }
 
