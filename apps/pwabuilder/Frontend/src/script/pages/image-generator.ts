@@ -7,7 +7,6 @@ import "../components/app-file-input";
 import { FileInputDetails, Lazy } from "../utils/interfaces";
 
 import { recordProcessStep, AnalyticsBehavior } from "../utils/analytics";
-import { env } from "../utils/environment";
 
 import "@shoelace-style/shoelace/dist/components/button/button.js";
 
@@ -23,7 +22,6 @@ const platformsData: Array<PlatformInformation> = [
     { label: loc.android, value: "android" },
     { label: loc.ios, value: "ios" }
 ];
-const baseUrl = env.imageGeneratorUrl;
 
 function boolListHasChanged<T>(value: T, unknownValue: T): boolean {
     if (!value || !unknownValue) {
