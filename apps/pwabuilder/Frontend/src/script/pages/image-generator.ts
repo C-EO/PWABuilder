@@ -337,11 +337,11 @@ export class ImageGenerator extends LitElement {
 
             form.append("baseImage", file as Blob);
             form.append("padding", String(this.padding));
-            form.append("color", colorValue);
+            form.append("backgroundColor", colorValue);
 
             platformsData
                 .filter((_, index) => this.platformSelected[index])
-                .forEach(data => form.append("platform", data.value));
+                .forEach(data => form.append("platforms", data.value));
 
             const createStoreImagesRequest = await fetch("/api/images/generateStoreImages", {
                 method: "POST",
